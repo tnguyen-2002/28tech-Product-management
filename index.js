@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-const routeClient = require("./routes/client/index.route");
+const routeClient = require("./routes/client/index.route.js");
 
 app.set("views", "./views"); //Set views directory
 app.set("view engine", "pug"); //Set views engine is 'pug'
