@@ -3,6 +3,9 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT;
 
+const database = require("./config/database");
+database.connect();
+
 const routeClient = require("./routes/client/index.route.js");
 
 app.set("views", "./views"); //Set views directory
