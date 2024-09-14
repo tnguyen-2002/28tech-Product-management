@@ -14,6 +14,10 @@
     margin-left: 10px;
   }
 
+  .header .inner-logo a:hover {
+    text-decoration: none;
+  }
+
   .header .inner-logo img {
     max-height: 50px;
     max-width: 100%;
