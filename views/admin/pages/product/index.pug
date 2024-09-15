@@ -1,17 +1,53 @@
 extends ../../layouts/default.pug
+include ../../mixins/product-status.pug
 
 block main
-  h1 Danh sách sản phẩm
+  h1 Product Category
+
+  .card
+    .card-header Filter and Search
+    .card-body
+      .row
+        .col-3
+          +prodFilter([
+            {
+              label: "Tất cả",
+              value: ""
+            },
+            {
+              label: "Hoạt động",
+              value: "active"
+            },
+            {
+              label: "Dừng hoạt động",
+              value: "inactive"
+            }
+          ])
+        .col-9
+          form(form-search)
+            .input-group
+              input(
+                type="text"
+                placeholder="Type search keyword..."
+                name="keyword"
+                class="form-control"
+              )
+              .input-group-append
+                button(
+                  class="btn btn-success"
+                  type="submit"
+                ) Tìm
+
 
   table.table.table-hover.table-sm
     thead
       tr
-        th STT
-        th Hình ảnh
-        th Tiêu đề
-        th Giá
-        th Trạng thái
-        th Hành động
+        th Product ID
+        th Thumbnail
+        th Product name
+        th Price
+        th Status
+        th Action
 
     tbody
       each item, index in products
@@ -27,7 +63,10 @@ block main
           td #{item.title}
           td #{item.price}$
           td
-            a(href="#" class="badge badge-success") Hoạt động 
+            if(item.status == "active")
+              a(href="#" class="badge badge-success") Active
+            else if (item.status == "inactive")
+              a(href="#" class="badge badge-danger") Inactive              
           td
-            button(class="btn btn-warning btn-sm") Sửa
-            button(class="btn btn-danger btn-sm ml-1") Xóa
+            button(class="btn btn-warning btn-sm") Edit
+            button(class="btn btn-danger btn-sm ml-1") Delete

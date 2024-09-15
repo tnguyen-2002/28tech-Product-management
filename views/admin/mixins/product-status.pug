@@ -1,0 +1,4 @@
+mixin prodFilter(status)
+    select(box-filter class="form-control")
+        each item in status
+            option(value=item.value) #{item.label}
