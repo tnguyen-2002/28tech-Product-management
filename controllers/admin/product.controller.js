@@ -1,3 +1,4 @@
+const { parse } = require("dotenv");
 const Product = require("../../models/product.model")
 
 module.exports.index = async (req,res) => {
@@ -19,11 +20,31 @@ module.exports.index = async (req,res) => {
         find.title = regex;
     }
     //end search product
-    
-    const products = await Product.find(find);
 
+    //pagination
+    let limitItems = 5;
+    let currentPage = 1;
+
+    if(req.query.pages){
+        currentPage = parseInt(req.query.pages);
+    }
+
+    if(req.query.limit){
+        limitItems = parseInt(req.query.limit);
+    }
+
+    const itemSkip = (currentPage - 1) * limitItems;
+    
+    const totalProduct = await Product.countDocuments(find);
+    const totalPage = Math.ceil(totalProduct/limitItems); 
+
+    //end pagination
+    
+    const products = await Product.find(find).limit(limitItems).skip(itemSkip);
     res.render("admin/pages/product/index", {
         pageTitle: "Product Category",
-        products: products
+        products: products,
+        totalPage: totalPage,
+        currentPage: currentPage
     });
 }

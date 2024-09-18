@@ -15,7 +15,7 @@ if (prodFilter) {
     location.href = url.href;
   });
   const currentStatus = url.searchParams.get("status");
-  if(currentStatus){
+  if (currentStatus) {
     prodFilter.value = currentStatus;
   }
 }
@@ -31,17 +31,48 @@ if (prodSearch) {
     const value = prodSearch.keyword.value;
 
     if (value) {
-        url.searchParams.set("keyword", value);
+      url.searchParams.set("keyword", value);
     } else {
-        url.searchParams.delete("keyword");
+      url.searchParams.delete("keyword");
     }
 
     location.href = url.href;
   });
   const currentSearch = url.searchParams.get("keyword");
-  if(currentSearch) {
+  if (currentSearch) {
     prodSearch.keyword.value = currentSearch;
   }
 }
 
 //end search feature
+
+//pagination
+const listPagePagination = document.querySelectorAll("[a-pagination]");
+if (listPagePagination.length > 1) {
+  let url = new URL(location.href);
+
+  listPagePagination.forEach((a) => {
+    a.addEventListener("click", () => {
+      const pages = a.getAttribute("a-pagination");
+
+      if (pages) {
+        url.searchParams.set("pages", pages);
+      } else {
+        url.searchParams.delete("pages");
+      }
+
+      location.href = url.href;
+    });
+  });
+
+  // display current page
+  const currentPage = url.searchParams.get("pages");
+  const buttonCurrent = document.querySelector(
+    `[a-pagination="${currentPage}"]`
+  );
+  if (currentPage) {
+    buttonCurrent.parentNode.classList.add("active");
+  }
+  // end display current page
+}
+//end pagination
