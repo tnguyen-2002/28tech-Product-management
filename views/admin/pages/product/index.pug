@@ -21,37 +21,54 @@ block main
               .input-group-append
                 button.btn.btn-success(type="submit") Tìm
 
-  table.table.table-hover.table-sm
-    thead
-      tr
-        th Product ID
-        th Thumbnail
-        th Product name
-        th Price
-        th Status
-        th Action
+  .card.mt-3
+    .card-header
+      h1 Products
+    .card-body
+      row 
+        .col-3
+          form
+            .input-group.mb-3
+              select.form-control
+                option(value="active") Active
+                option(value="inactive") Inactive
+              .input-group-append
+                button.btn.btn-primary(type="submit") Apply
+      row 
+        table.table.table-hover.table-sm
+          thead
+            tr
+              th
+              th Product ID
+              th Thumbnail
+              th Product name
+              th Price
+              th Status
+              th Action
 
-    tbody
-      each item, index in products
-        tr
-          td #{ index+1 }
-          td
-            img(
-              src=item.thumbnail,
-              alt=item.title,
-              width="100px",
-              height="auto"
-            )
-          td #{ item.title }
-          td #{ item.price }$
-          td
-            if (item.status == "active")
-              button.badge.badge-success(status-change="inactive" productId=item.id) Active
-            else if (item.status == "inactive")
-              button.badge.badge-danger(status-change="active" productId=item.id) Inactive
-          td
-            button.btn.btn-warning.btn-sm Edit
-            button.btn.btn-danger.btn-sm.ml-1 Delete
+          tbody
+            each item, index in products
+              tr
+                td
+                  input(type="checkbox" multiStatusChange="item.id")
+                td #{ index+1 }
+                td
+                  img(
+                    src=item.thumbnail,
+                    alt=item.title,
+                    width="100px",
+                    height="auto"
+                  )
+                td #{ item.title }
+                td #{ item.price }$
+                td
+                  if (item.status == "active")
+                    button.badge.badge-success(status-change="inactive" productId=item.id data-path=`/${prefixAdmin}/product/change-status`) Active
+                  else if (item.status == "inactive")
+                    button.badge.badge-danger(status-change="active" productId=item.id data-path=`/${prefixAdmin}/product/change-status`) Inactive
+                td
+                  button.btn.btn-warning.btn-sm Edit
+                  button.btn.btn-danger.btn-sm.ml-1 Delete
 
   nav(aria-label="Page navigation example")
   ul.pagination

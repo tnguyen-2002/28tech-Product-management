@@ -82,15 +82,15 @@ const statusButtonArray = document.querySelectorAll("[status-change]");
 if(statusButtonArray.length > 0) {
   statusButtonArray.forEach(button => {
     button.addEventListener("click", () => {
-      const prodID = button.getAttribute("productId")
+      const prodID = button.getAttribute("productId");
       const statusChange = button.getAttribute("status-change");
-      
+      const path = button.getAttribute("data-path");
       const data = {
         id: prodID,
         status: statusChange
       };
 
-      fetch("/admin666/product/change-status", {
+      fetch(path, {
         headers: {
           "Content-Type": "application/json",
         },
