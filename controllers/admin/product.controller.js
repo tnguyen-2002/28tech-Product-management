@@ -48,3 +48,15 @@ module.exports.index = async (req,res) => {
         currentPage: currentPage
     });
 }
+
+module.exports.changeStatus = async (req,res) => {
+    await Product.updateOne({
+        _id: req.body.id
+    }, {
+        status: req.body.status
+    });
+
+    res.json({
+        code: "success",
+    })
+}

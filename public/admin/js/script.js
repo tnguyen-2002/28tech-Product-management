@@ -48,7 +48,7 @@ if (prodSearch) {
 
 //pagination
 const listPagePagination = document.querySelectorAll("[a-pagination]");
-if (listPagePagination.length > 1) {
+if (listPagePagination.length > 0) {
   let url = new URL(location.href);
 
   listPagePagination.forEach((a) => {
@@ -76,3 +76,35 @@ if (listPagePagination.length > 1) {
   // end display current page
 }
 //end pagination
+
+//Status changing button
+const statusButtonArray = document.querySelectorAll("[status-change]");
+if(statusButtonArray.length > 0) {
+  statusButtonArray.forEach(button => {
+    button.addEventListener("click", () => {
+      const prodID = button.getAttribute("productId")
+      const statusChange = button.getAttribute("status-change");
+      
+      const data = {
+        id: prodID,
+        status: statusChange
+      };
+
+      fetch("/admin666/product/change-status", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PATCH",
+        body: JSON.stringify(data)
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "success")
+            location.reload();
+        })
+    })
+  })
+}
+
+
+//end status changing button

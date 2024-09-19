@@ -1,6 +1,8 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 require("dotenv").config();
 const systemConfig = require("./config/system")
+
 const app = express();
 const port = process.env.PORT;
 
@@ -17,6 +19,9 @@ app.use(express.static('public')); //Set static folder
 
 //local variable for *.pug
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
+
+//parse application/json
+app.use(bodyParser.json());
 
 routeAdmin(app);
 routeClient(app);
