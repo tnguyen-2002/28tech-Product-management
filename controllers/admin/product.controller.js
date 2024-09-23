@@ -38,7 +38,14 @@ module.exports.index = async (req, res) => {
 
   //end pagination
 
-  const products = await Product.find(find).limit(limitItems).skip(itemSkip);
+  const products = await Product
+  .find(find)
+  .limit(limitItems)
+  .skip(itemSkip)
+  .sort({
+    position: "desc"
+  });
+  
   res.render("admin/pages/product/index", {
     pageTitle: "Product Category",
     products: products,
@@ -127,6 +134,21 @@ module.exports.deleteProduct = async (req, res) => {
     },
     {
       deleted: req.body.deleted,
+    }
+  );
+
+  res.json({
+    code: "success",
+  });
+};
+
+module.exports.positionProduct = async (req, res) => {
+  await Product.updateOne(
+    {
+      _id: req.body.id,
+    },
+    {
+      position: req.body.position,
     }
   );
 

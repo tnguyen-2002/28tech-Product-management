@@ -79,16 +79,16 @@ if (listPagePagination.length > 0) {
 
 //Status changing button
 const prodStatus = document.querySelectorAll("[status-change]");
-if(prodStatus.length > 0) {
-  prodStatus.forEach(button => {
+if (prodStatus.length > 0) {
+  prodStatus.forEach((button) => {
     button.addEventListener("click", () => {
       const prodID = button.getAttribute("productId");
-      const status= button.getAttribute("status-change");
+      const status = button.getAttribute("status-change");
 
       const path = button.getAttribute("data-path");
       const data = {
         id: prodID,
-        status: status
+        status: status,
       };
 
       fetch(path, {
@@ -96,92 +96,120 @@ if(prodStatus.length > 0) {
           "Content-Type": "application/json",
         },
         method: "PATCH",
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       })
-        .then(res => res.json())
-        .then(data => {
-          if(data.code == "success")
-            location.reload();
-        })
-    })
-  })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.code == "success") location.reload();
+        });
+    });
+  });
 }
-
 
 //end status changing button
 
 //multi status change
 const prodMStatus = document.querySelector("[mStatus-change]");
-if(prodMStatus){
+if (prodMStatus) {
   prodMStatus.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const checked = document.querySelectorAll("[multiStatusChange]:checked");
     const status = prodMStatus.status.value;
-    if(status == "delete"){
-      const isConfirm = confirm("Delete selected products?")
-      if(!isConfirm)
-        return;
+    if (status == "delete") {
+      const isConfirm = confirm("Delete selected products?");
+      if (!isConfirm) return;
     }
 
     const path = prodMStatus.getAttribute("data-path");
     console.log(path);
 
     const ids = [];
-    checked.forEach(input => {
+    checked.forEach((input) => {
       const id = input.getAttribute("multiStatusChange");
       ids.push(id);
-    })
+    });
 
     const data = {
       ids: ids,
-      status: status
-    }
+      status: status,
+    };
 
     fetch(path, {
       headers: {
         "Content-Type": "application/json",
       },
       method: "PATCH",
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-      .then (res => res.json())
-      .then (data => {
-        if(data.code == "success"){
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.code == "success") {
           location.reload();
         }
-      })
-  })
+      });
+  });
 }
 //end multi status change
 
 //delete product
 const deleteButton = document.querySelectorAll("[delete-product]");
-if(deleteButton.length > 0) {
-  deleteButton.forEach(button => {
+if (deleteButton.length > 0) {
+  deleteButton.forEach((button) => {
     button.addEventListener("click", () => {
       const prodID = button.getAttribute("productID");
+      const path = button.getAttribute("data-path");
 
       const data = {
         id: prodID,
-        deleted: "true"
-      }
+        deleted: "true",
+      };
 
-      fetch("/admin666/product/delete-product", {
+      fetch(path, {
         headers: {
-        "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
         method: "PATCH",
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       })
-        .then(res => res.json())
-        .then(data => {
-          if(data.code == "success"){
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.code == "success") {
             location.reload();
           }
-        })
-    })
-  })
+        });
+    });
+  });
 }
 //end delete product
 
+//update product position
+const prodPosition = document.querySelectorAll("[position-update]");
+if (prodPosition.length > 0) {
+  prodPosition.forEach((input) => {
+    input.addEventListener("change", () => {
+      const value = parseInt(input.value);
+      const id = input.getAttribute("productID");
+
+      const data = {
+        id: id,
+        position: value,
+      };
+
+      fetch("/admin666/product/position-product", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "PATCH",
+        body: JSON.stringify(data),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.code == "success") {
+            location.reload();
+          }
+        })
+    });
+  });
+}
+//end update product position

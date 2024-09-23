@@ -27,7 +27,7 @@ block main
     .card-body
       row 
         .col-3.mb-3
-          form(mStatus-change data-path=`/${prefixAdmin}/product/multi-change`)
+          form(mStatus-change data-path=`/${prefixAdmin}/product/statusM-product`)
             .input-group
               select.form-control(name="status")
                 option(value="active") Active
@@ -45,6 +45,7 @@ block main
               th Thumbnail
               th Product name
               th Price
+              th Position
               th Status
               th Action
 
@@ -63,14 +64,22 @@ block main
                   )
                 td #{ item.title }
                 td #{ item.price }$
+                td 
+                  input(
+                    position-update
+                    type="number"
+                    value=item.position
+                    productID=item.id
+                    style={width: '60px'}
+                  )
                 td
                   if (item.status == "active")
-                    button.badge.badge-success(status-change="inactive" productId=item.id data-path=`/${prefixAdmin}/product/change-status`) Active
+                    button.badge.badge-success(status-change="inactive" productId=item.id data-path=`/${prefixAdmin}/product/status-product`) Active
                   else if (item.status == "inactive")
-                    button.badge.badge-danger(status-change="active" productId=item.id data-path=`/${prefixAdmin}/product/change-status`) Inactive
+                    button.badge.badge-danger(status-change="active" productId=item.id data-path=`/${prefixAdmin}/product/status-product`) Inactive
                 td
                   button.btn.btn-warning.btn-sm Edit
-                  button.btn.btn-danger.btn-sm.ml-1(delete-product productID=item.id) Delete
+                  button.btn.btn-danger.btn-sm.ml-1(delete-product productID=item.id data-path=`/${prefixAdmin}/product/delete-product`) Delete
 
   // - Start Pagination
   nav(aria-label="Page navigation example")

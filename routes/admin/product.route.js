@@ -4,9 +4,10 @@ const router = express.Router();
 const controller = require("../../controllers/admin/product.controller");
 
 router.get("/", controller.index);
-router.patch("/change-status", controller.changeStatus);
-router.patch("/multi-change", controller.multiChange);
+router.patch("/status-product", controller.changeStatus);
+router.patch("/statusM-product", controller.multiChange);
 router.patch("/delete-product", controller.deleteProduct);
+router.patch("/position-product", controller.positionProduct);
 
 
 module.exports = router;
