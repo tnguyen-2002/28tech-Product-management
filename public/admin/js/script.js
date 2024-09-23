@@ -108,3 +108,47 @@ if(statusButtonArray.length > 0) {
 
 
 //end status changing button
+
+//multi status change
+const prodMStatus = document.querySelector("[mStatus-change]");
+if(prodMStatus){
+  prodMStatus.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const checked = document.querySelectorAll("[multiStatusChange]:checked");
+    const status = prodMStatus.status.value;
+    const path = prodMStatus.getAttribute("data-path");
+    console.log(path);
+
+    const ids = [];
+    checked.forEach(input => {
+      const id = input.getAttribute("multiStatusChange");
+      ids.push(id);
+    })
+
+    const data = {
+      ids: ids,
+      status: status
+    }
+
+    fetch(path, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
+      body: JSON.stringify(data)
+    })
+      .then (res => res.json())
+      .then (data => {
+        if(data.code == "success"){
+          location.reload();
+        }
+      })
+  })
+}
+//end multi status change
+
+//delete product
+
+
+//end delete product

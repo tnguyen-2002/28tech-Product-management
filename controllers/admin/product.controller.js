@@ -60,3 +60,15 @@ module.exports.changeStatus = async (req,res) => {
         code: "success",
     })
 }
+
+module.exports.multiChange = async (req,res) => {
+    await Product.updateMany({
+        _id: req.body.ids
+    },{
+        status: req.body.status
+    });
+
+    res.json({
+        code: "success",
+    })
+}

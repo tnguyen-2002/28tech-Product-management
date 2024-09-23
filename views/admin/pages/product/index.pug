@@ -19,7 +19,7 @@ block main
                 name="keyword"
               )
               .input-group-append
-                button.btn.btn-success(type="submit") Tìm
+                button.btn.btn-success(type="submit") Find
 
   .card.mt-3
     .card-header
@@ -27,13 +27,13 @@ block main
     .card-body
       row 
         .col-3
-          form
+          form(mStatus-change data-path=`/${prefixAdmin}/product/multi-change`)
             .input-group.mb-3
-              select.form-control
+              select.form-control(name="status")
                 option(value="active") Active
                 option(value="inactive") Inactive
               .input-group-append
-                button.btn.btn-primary(type="submit") Apply
+                button.btn.btn-success(type="submit") Apply
       row 
         table.table.table-hover.table-sm
           thead
@@ -50,7 +50,7 @@ block main
             each item, index in products
               tr
                 td
-                  input(type="checkbox" multiStatusChange="item.id")
+                  input(type="checkbox" multiStatusChange=item.id)
                 td #{ index+1 }
                 td
                   img(
@@ -68,7 +68,7 @@ block main
                     button.badge.badge-danger(status-change="active" productId=item.id data-path=`/${prefixAdmin}/product/change-status`) Inactive
                 td
                   button.btn.btn-warning.btn-sm Edit
-                  button.btn.btn-danger.btn-sm.ml-1 Delete
+                  button.btn.btn-danger.btn-sm.ml-1(delete-product="false" productID=item.id) Delete
 
   nav(aria-label="Page navigation example")
   ul.pagination
