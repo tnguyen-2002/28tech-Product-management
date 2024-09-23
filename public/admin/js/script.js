@@ -78,16 +78,17 @@ if (listPagePagination.length > 0) {
 //end pagination
 
 //Status changing button
-const statusButtonArray = document.querySelectorAll("[status-change]");
-if(statusButtonArray.length > 0) {
-  statusButtonArray.forEach(button => {
+const prodStatus = document.querySelectorAll("[status-change]");
+if(prodStatus.length > 0) {
+  prodStatus.forEach(button => {
     button.addEventListener("click", () => {
       const prodID = button.getAttribute("productId");
-      const statusChange = button.getAttribute("status-change");
+      const status= button.getAttribute("status-change");
+
       const path = button.getAttribute("data-path");
       const data = {
         id: prodID,
-        status: statusChange
+        status: status
       };
 
       fetch(path, {
@@ -117,6 +118,12 @@ if(prodMStatus){
 
     const checked = document.querySelectorAll("[multiStatusChange]:checked");
     const status = prodMStatus.status.value;
+    if(status == "delete"){
+      const isConfirm = confirm("Delete selected products?")
+      if(!isConfirm)
+        return;
+    }
+
     const path = prodMStatus.getAttribute("data-path");
     console.log(path);
 
@@ -177,3 +184,4 @@ if(deleteButton.length > 0) {
   })
 }
 //end delete product
+
