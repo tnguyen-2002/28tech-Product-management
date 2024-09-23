@@ -1,7 +1,10 @@
 const express = require("express");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 require("dotenv").config();
-const systemConfig = require("./config/system")
+const flash = require("express-flash");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const systemConfig = require("./config/system");
 
 const app = express();
 const port = process.env.PORT;
@@ -15,7 +18,18 @@ const routeClient = require("./routes/client/index.route.js");
 app.set("views", "./views"); //Set views directory
 app.set("view engine", "pug"); //Set views engine is 'pug'
 
-app.use(express.static('public')); //Set static folder
+app.use(express.static("public")); //Set static folder
+
+//Flash
+app.use(cookieParser("ABCZYX"));
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: false,
+    cookie: { sameSite: 'strict' },
+  })
+);
+app.use(flash());
 
 //local variable for *.pug
 app.locals.prefixAdmin = systemConfig.prefixAdmin;

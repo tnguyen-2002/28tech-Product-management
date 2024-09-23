@@ -213,3 +213,12 @@ if (prodPosition.length > 0) {
   });
 }
 //end update product position
+
+// alert timeout
+const alertMessage = document.querySelector("[alert-message]");
+if(alertMessage) {
+  setTimeout(() => {
+    alertMessage.style.display = "none";
+  }, 3000);
+}
+//end alert timeout 

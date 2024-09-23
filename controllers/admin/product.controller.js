@@ -64,29 +64,16 @@ module.exports.changeStatus = async (req, res) => {
     }
   );
 
+  req.flash('success', 'Update product status successful!');
+
   res.json({
-    code: "success",
+    code: "success"
   });
 };
 
 module.exports.multiChange = async (req, res) => {
   switch (req.body.status) {
     case "active":
-      await Product.updateMany(
-        {
-          _id: req.body.ids,
-        },
-        {
-          status: req.body.status,
-        }
-      );
-
-      res.json({
-        code: "success",
-        message: "Update status successful!",
-      });
-      break;
-
     case "inactive":
       await Product.updateMany(
         {
@@ -97,9 +84,10 @@ module.exports.multiChange = async (req, res) => {
         }
       );
 
+      req.flash('success', 'Update products status successful!');
+
       res.json({
-        code: "success",
-        message: "Update status successful!",
+        code: "success"
       });
       break;
 
@@ -113,11 +101,13 @@ module.exports.multiChange = async (req, res) => {
         }
       );
 
+      req.flash('success', 'Delete products successful!');
+
       res.json({
-        code: "success",
-        message: "Delete successul!",
+        code: "success"
       });
       break;
+
     default:
       res.json({
         code: "error",
@@ -137,6 +127,8 @@ module.exports.deleteProduct = async (req, res) => {
     }
   );
 
+  req.flash('success', 'Delete product successful!');
+
   res.json({
     code: "success",
   });
@@ -152,7 +144,9 @@ module.exports.positionProduct = async (req, res) => {
     }
   );
 
+  req.flash('success', 'Update product position successful!');
+
   res.json({
-    code: "success",
+    code: "success"
   });
 };
