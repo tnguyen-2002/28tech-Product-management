@@ -149,6 +149,31 @@ if(prodMStatus){
 //end multi status change
 
 //delete product
+const deleteButton = document.querySelectorAll("[delete-product]");
+if(deleteButton.length > 0) {
+  deleteButton.forEach(button => {
+    button.addEventListener("click", () => {
+      const prodID = button.getAttribute("productID");
 
+      const data = {
+        id: prodID,
+        deleted: "true"
+      }
 
+      fetch("/admin666/product/delete-product", {
+        headers: {
+        "Content-Type": "application/json",
+        },
+        method: "PATCH",
+        body: JSON.stringify(data)
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.code == "success"){
+            location.reload();
+          }
+        })
+    })
+  })
+}
 //end delete product

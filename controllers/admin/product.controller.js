@@ -72,3 +72,15 @@ module.exports.multiChange = async (req,res) => {
         code: "success",
     })
 }
+
+module.exports.deleteProduct = async (req,res) => {
+    await Product.updateOne({
+        _id: req.body.id
+    }, {
+        deleted: req.body.deleted
+    });
+
+    res.json({
+        code: "success"
+    })
+}

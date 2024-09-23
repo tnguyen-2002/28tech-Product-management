@@ -9,7 +9,7 @@ block main
     .card-body
       .row
         .col-3
-          +prodFilter([ { label: "Tất cả", value: "" }, { label: "Hoạt động", value: "active" }, { label: "Dừng hoạt động", value: "inactive" } ])
+          +prodFilter([ { label: "All Products", value: "" }, { label: "Active", value: "active" }, { label: "Inactive", value: "inactive" } ])
         .col-9
           form(form-search)
             .input-group
@@ -68,7 +68,7 @@ block main
                     button.badge.badge-danger(status-change="active" productId=item.id data-path=`/${prefixAdmin}/product/change-status`) Inactive
                 td
                   button.btn.btn-warning.btn-sm Edit
-                  button.btn.btn-danger.btn-sm.ml-1(delete-product="false" productID=item.id) Delete
+                  button.btn.btn-danger.btn-sm.ml-1(delete-product productID=item.id) Delete
 
   nav(aria-label="Page navigation example")
   ul.pagination
