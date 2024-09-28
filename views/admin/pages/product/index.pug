@@ -25,7 +25,7 @@ block main
     .card-header
       h1 Products
     .card-body
-      row 
+      .row
         .col-3.mb-3
           form(mStatus-change data-path=`/${prefixAdmin}/product/statusM-product`)
             .input-group
@@ -35,7 +35,10 @@ block main
                 option(value="delete") Delete
               .input-group-append
                 button.btn.btn-success(type="submit") Apply
-          
+
+        .col-9.text-right
+          a.btn.btn-outline-success(href=`/${prefixAdmin}/product/create`) Add product
+
       row 
         table.table.table-hover.table-sm
           thead

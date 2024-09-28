@@ -150,3 +150,19 @@ module.exports.positionProduct = async (req, res) => {
     code: "success"
   });
 };
+
+module.exports.create = async (req, res) => {
+  res.render("admin/pages/product/create", {
+    pageTitle: "Add New Product"
+  });
+};
+
+module.exports.createPost = async (req, res) => {
+  console.log(req.body);
+
+  res.send("OK");
+  
+  // res.render("admin/pages/product/create", {
+  //   pageTitle: "Add New Product"
+  // });
+};
