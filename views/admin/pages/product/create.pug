@@ -10,7 +10,7 @@ block main
     method="POST"
     )
         div(class="form-group")
-            label(for="title") Tiêu đề
+            label(for="title") Product Name
             input(
                 type="text"
                 class="form-control"
@@ -19,7 +19,7 @@ block main
                 required
             )
         div(class="form-group")
-            label(for="desc") Mô tả
+            label(for="desc") Product Description
             textarea(
                 class="form-control"
                 id="desc"
@@ -27,7 +27,7 @@ block main
                 rows="5"
             )
         div(class="form-group")
-            label(for="price") Giá
+            label(for="price") Price
             input(
                 type="number"
                 class="form-control"
@@ -37,7 +37,7 @@ block main
                 min="0"
             )
         div(class="form-group")
-            label(for="discount") % Giảm giá
+            label(for="discount") Discount Percentage %
             input(
                 type="number"
                 class="form-control"
@@ -47,7 +47,7 @@ block main
                 min="0"
             )
         div(class="form-group")
-            label(for="stock") Số lượng
+            label(for="stock") Stock
             input(
                 type="number"
                 class="form-control"
@@ -57,7 +57,7 @@ block main
                 min="0"
             )
         div(class="form-group")
-            label(for="thumbnail") Ảnh
+            label(for="thumbnail") Thumbnail
             input(
                 type="text"
                 class="form-control"
@@ -65,13 +65,13 @@ block main
                 name="thumbnail"
             )
         div(class="form-group")
-            label(for="position") Vị trí
+            label(for="position") Position
             input(
                 type="number"
                 class="form-control"
                 id="position"
                 name="position"
-                placeholder="Tự động tăng"
+                placeholder="Auto Increase"
                 min="1"
             )
         div(class="form-group form-check form-check-inline")
@@ -83,7 +83,10 @@ block main
                 value="active"
                 checked
             )
-            label(for="statusActive" class="form-check-label") Hoạt động
+            label(
+                for="statusActive" 
+                class="form-check-label"
+            ) Active
         div(class="form-group form-check form-check-inline")
             input(
                 type="radio"
@@ -92,9 +95,12 @@ block main
                 name="status"
                 value="inactive"
             )
-            label(for="statusInActive" class="form-check-label") Dừng hoạt động
+            label(
+                for="statusInActive"
+                class="form-check-label"
+            ) Inactive
         div(class="form-group")
             button(
                 type="submit"
                 class="btn btn-primary"
-            ) Tạo mới
+            ) Create Product

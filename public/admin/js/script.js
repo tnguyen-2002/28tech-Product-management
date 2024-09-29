@@ -54,10 +54,9 @@ if (listPagePagination.length > 0) {
   listPagePagination.forEach((a) => {
     a.addEventListener("click", () => {
       const pages = a.getAttribute("a-pagination");
-
       if (pages) {
         url.searchParams.set("pages", pages);
-      } else {
+      } else{
         url.searchParams.delete("pages");
       }
 

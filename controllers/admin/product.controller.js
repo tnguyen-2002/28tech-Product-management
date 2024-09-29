@@ -1,5 +1,7 @@
-const { parse } = require("dotenv");
+const { prefixAdmin } = require("../../config/system");
 const Product = require("../../models/product.model");
+const systemConfig = require("../../config/system");
+
 
 module.exports.index = async (req, res) => {
   const find = {
@@ -38,14 +40,13 @@ module.exports.index = async (req, res) => {
 
   //end pagination
 
-  const products = await Product
-  .find(find)
-  .limit(limitItems)
-  .skip(itemSkip)
-  .sort({
-    position: "desc"
-  });
-  
+  const products = await Product.find(find)
+    .limit(limitItems)
+    .skip(itemSkip)
+    .sort({
+      position: "desc",
+    });
+
   res.render("admin/pages/product/index", {
     pageTitle: "Product Category",
     products: products,
@@ -64,10 +65,10 @@ module.exports.changeStatus = async (req, res) => {
     }
   );
 
-  req.flash('success', 'Update product status successful!');
+  req.flash("success", "Update product status successful!");
 
   res.json({
-    code: "success"
+    code: "success",
   });
 };
 
@@ -84,14 +85,14 @@ module.exports.multiChange = async (req, res) => {
         }
       );
 
-      req.flash('success', 'Update products status successful!');
+      req.flash("success", "Update products status successful!");
 
       res.json({
-        code: "success"
+        code: "success",
       });
       break;
 
-    case 'delete':
+    case "delete":
       await Product.updateMany(
         {
           _id: req.body.ids,
@@ -101,10 +102,10 @@ module.exports.multiChange = async (req, res) => {
         }
       );
 
-      req.flash('success', 'Delete products successful!');
+      req.flash("success", "Delete products successful!");
 
       res.json({
-        code: "success"
+        code: "success",
       });
       break;
 
@@ -127,7 +128,7 @@ module.exports.deleteProduct = async (req, res) => {
     }
   );
 
-  req.flash('success', 'Delete product successful!');
+  req.flash("success", "Delete product successful!");
 
   res.json({
     code: "success",
@@ -144,24 +145,34 @@ module.exports.positionProduct = async (req, res) => {
     }
   );
 
-  req.flash('success', 'Update product position successful!');
+  req.flash("success", "Update product position successful!");
 
   res.json({
-    code: "success"
+    code: "success",
   });
 };
 
 module.exports.create = async (req, res) => {
   res.render("admin/pages/product/create", {
-    pageTitle: "Add New Product"
+    pageTitle: "Add New Product",
   });
 };
 
 module.exports.createPost = async (req, res) => {
-  console.log(req.body);
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+  if (req.body.position) {
+    req.body.position = parseInt(req.body.position);
+  } else {
+    const countRecord = await Product.countDocuments();
+    req.body.position = parseInt(countRecord);
+  }
 
-  res.send("OK");
-  
+  const record = new Product(req.body);
+  await record.save();
+  res.redirect(`/${systemConfig.prefixAdmin}/product/`);
+
   // res.render("admin/pages/product/create", {
   //   pageTitle: "Add New Product"
   // });
