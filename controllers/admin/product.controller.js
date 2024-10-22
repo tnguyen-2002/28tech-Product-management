@@ -166,8 +166,15 @@ module.exports.createPost = async (req, res) => {
     req.body.position = parseInt(req.body.position);
   } else {
     const countRecord = await Product.countDocuments();
-    req.body.position = parseInt(countRecord);
+    req.body.position = countRecord + 1;
   }
+
+  if(req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+  }
+
+  console.log(req.file);
+  console.log(req.body);
 
   const record = new Product(req.body);
   await record.save();
