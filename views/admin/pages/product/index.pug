@@ -81,7 +81,10 @@ block main
                   else if (item.status == "inactive")
                     button.badge.badge-danger(status-change="active" productId=item.id data-path=`/${prefixAdmin}/product/status-product`) Inactive
                 td
-                  button.btn.btn-warning.btn-sm Edit
+                  a(
+                    class="btn btn-warning btn-sm"
+                    href=`/${prefixAdmin}/products/edit/${item.id}`
+                  ) Edit
                   button.btn.btn-danger.btn-sm.ml-1(delete-product productID=item.id data-path=`/${prefixAdmin}/product/delete-product`) Delete
 
   // - Start Pagination
