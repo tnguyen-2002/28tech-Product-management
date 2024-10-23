@@ -82,7 +82,11 @@ block main
                     button.badge.badge-danger(status-change="active" productId=item.id data-path=`/${prefixAdmin}/product/status-product`) Inactive
                 td
                   a(
-                    class="btn btn-warning btn-sm"
+                    class="btn btn-info btn-sm"
+                    href=`/${prefixAdmin}/product/detail/${item.id}`
+                  ) Detail
+                  a(
+                    class="btn btn-warning btn-sm ml-1"
                     href=`/${prefixAdmin}/products/edit/${item.id}`
                   ) Edit
                   button.btn.btn-danger.btn-sm.ml-1(delete-product productID=item.id data-path=`/${prefixAdmin}/product/delete-product`) Delete
