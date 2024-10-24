@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config();
+const path = require('path');
 
 const flash = require("express-flash");  //Flash - https://github.com/RGBboy/express-flash
 const cookieParser = require("cookie-parser"); // - https://github.com/expressjs/cookie-parser
@@ -21,6 +22,9 @@ app.set("views", `${__dirname}/views`); //Set views directory
 app.set("view engine", "pug"); //Set views engine is 'pug'
 
 app.use(express.static(`${__dirname}/public`)); //Set static folder
+
+// New Route to the TinyMCE Node module
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 //override with POST having ?_method=DELETE
 app.use(methodOverride('_method'));

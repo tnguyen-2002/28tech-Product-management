@@ -52,6 +52,6 @@ router.patch(
     controller.editPatch
 );
 
-router.get("/detail/:slug", controller.detail);
+router.get("/detail/:id", controller.detail);
 
 module.exports = router;
