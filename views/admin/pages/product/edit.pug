@@ -4,7 +4,7 @@ include ../../mixins/product-status.pug
 block main
   h1 #{pageTitle}
   form(
-    action=`/${prefixAdmin}/products/edit/${product.id}?_method=PATCH`
+    action=`/${prefixAdmin}/product/edit/${product.id}?_method=PATCH`
     method="POST"
     enctype="multipart/form-data"
   )

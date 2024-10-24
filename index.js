@@ -17,10 +17,10 @@ const routeAdmin = require("./routes/admin/index.route.js");
 const routeClient = require("./routes/client/index.route.js");
 const methodOverride = require("method-override");
 
-app.set("views", "./views"); //Set views directory
+app.set("views", `${__dirname}/views`); //Set views directory
 app.set("view engine", "pug"); //Set views engine is 'pug'
 
-app.use(express.static("public")); //Set static folder
+app.use(express.static(`${__dirname}/public`)); //Set static folder
 
 //override with POST having ?_method=DELETE
 app.use(methodOverride('_method'));

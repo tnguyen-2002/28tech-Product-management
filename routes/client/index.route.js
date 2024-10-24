@@ -5,4 +5,6 @@ module.exports = (app) => {
     app.use("/", homeRoute);
 
     app.use("/product", productRoute);
+
+    
 }

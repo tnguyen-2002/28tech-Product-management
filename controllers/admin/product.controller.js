@@ -169,10 +169,6 @@ module.exports.createPost = async (req, res) => {
     req.body.position = countRecord + 1;
   }
 
-  if(req.file) {
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
-  }
-
   const record = new Product(req.body);
   await record.save();
   res.redirect(`/${systemConfig.prefixAdmin}/product/`);
@@ -204,11 +200,7 @@ module.exports.editPatch = async (req, res) => {
   req.body.stock = parseInt(req.body.stock);
 
   if(req.body.position) {
-    req.body.position = parseInt(req.body.posidion);
-  }
-
-  if(req.file){
-    req.body.thumbnail = `uploads/${req.file.filename}`;
+    req.body.position = parseInt(req.body.position);
   }
 
   await Product.updateOne({
