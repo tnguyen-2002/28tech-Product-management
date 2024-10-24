@@ -36,7 +36,18 @@ block main
               .input-group-append
                 button.btn.btn-success(type="submit") Apply
 
-        .col-9.text-right
+        .col-3
+            .input-group
+              select.form-control(sort-select)
+                option(value="position-desc") Decrease position
+                option(value="position-asc") Increase position
+                option(value="title-asc") A to Z
+                option(value="title-desc") Z to A
+                option(value="price-desc") Decrease price
+                option(value="price-asc") Increase price
+
+
+        .col-6.text-right
           a.btn.btn-outline-success(href=`/${prefixAdmin}/product/create`) Add product
 
       row 

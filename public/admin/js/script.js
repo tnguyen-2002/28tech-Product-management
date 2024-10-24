@@ -235,3 +235,31 @@ if(uploadImage) {
   });
 }
 // End preview image
+
+// sort product
+const sortProduct = document.querySelector("[sort-select]");
+if(sortProduct){
+  let url = new URL(location.href);
+
+  sortProduct.addEventListener("change",() =>{
+    const value = sortProduct.value;
+    console.log(value);
+    if(value) {
+      const [sortKey, sortValue] = value.split("-");
+
+      url.searchParams.set("sortKey", sortKey);
+      url.searchParams.set("sortValue", sortValue);
+    }else{
+      url.searchParams.delete("sortKey");
+      url.searchParams.delete("sortValue");
+    }
+
+    location.href = url.href;
+  });
+  const currentSortKey = url.searchParams.get("sortKey");
+  const currentSortValue = url.searchParams.get("sortValue");
+  if(currentSortKey && currentSortValue){
+    sortProduct.value = `${currentSortKey}-${currentSortValue}`;
+  }
+}
+// end sort product
